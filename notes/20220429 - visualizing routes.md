@@ -67,13 +67,13 @@ y =
 ```
 
 This looks nice and generalizable. But what happens when the process forks like this, like in the case of two pieces of bread that are peanut-buttered (g3) and jellied (g4) in parrallel?
-
+```
         g3 
        /  \
 g1 - g2    g5 - g6
        \  /
         g4
-
+```
 Our generalization quickly falls apart. Particularly, we need a way to handle:
 
 `x5 = g5((g3(x2, m3, r3) + g4(x2, m4, r4)), m5, r5)`
@@ -95,13 +95,13 @@ x5 = g5(x3 + x4, m5, r5)
 Herein lies the current limitation of manufacturing modeling. When we had a linear process (without branching and merging) it was relatively straightforward to stick everything quite neatly into a database table. But things become a little more complex:
 
 The problem is not complex because this kind of data structure is difficult to store in a relational database:
-
+```
         g3 
        /  \
 g1 - g2    g5 - g6
        \  /
         g4
-
+```
 That kind of structure can easily be represented in a relational database like this:
 ```
 ID | TO | FROM | WEIGHT
