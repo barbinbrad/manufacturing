@@ -115,7 +115,7 @@ ID | TO | FROM | WEIGHT
 
 The problem is complex because it's difficult for a human to figure out how to store this kind of thing in a relational database. Imagine trying to represent a complex graph with a single form with two fields: `FROM` and `TO`. The big picture is too easily lost. Thus, an interface is needed beyond the basic CRUD table view. 
 
-#### Hypothesis: by creating a graph-based visual editor for manufacturing routing, it becomes easier to represent graph-based routing.
+#### Hypothesis: 1/ by creating a graph-based visual editor for manufacturing routing, it becomes easier to represent graph-based routing. And 2/ representing manufacturing as a graph has great benefits.
 
 
 
