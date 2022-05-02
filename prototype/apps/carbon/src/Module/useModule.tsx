@@ -1,25 +1,62 @@
 import * as React from 'react';
-import ReactFlow, { useNodesState, useEdgesState, addEdge, MiniMap, Controls, Position } from 'react-flow-renderer';
+import { Node, Edge, Position } from 'react-flow-renderer';
+import { useParams } from 'react-router-dom';
 
-import ManufacturingNode from './components/ManufacturingNode'
+type FlowGraph = {
+  nodes: Node[],
+  edges: Edge[],
+}
 
-import "./App.css";
-
-const connectionLineStyle = { stroke: '#fff' };
-const snapGrid = [10, 10] as [number, number];
-const nodeTypes = {   
-  manufacturingNode: ManufacturingNode,
-};
-
-const CustomNodeFlow = () => {
-  const [nodes, setNodes, onNodesChange] = useNodesState([]);
-  const [edges, setEdges, onEdgesChange] = useEdgesState([]);
-  React.useEffect( () => {
-    setNodes([
+const dummyData: { [key: string]: FlowGraph; } = {
+  '1': {
+    nodes: [
       {
+        
         id: '0',
         type: 'input',
-        data: { label: 'Order' },
+        data: { label: 'Input' },
+        position: { x: 0, y: 50 },
+        sourcePosition: Position.Right,
+      },
+      {
+        id: '1',
+        type: 'manufacturingNode',
+        data: { title: 'G1' },
+        style: { border: '1px solid #777', padding: 10, background: 'yellow' },
+        position: { x: 400, y: 50 },
+      },
+      {
+        id: '999',
+        type: 'output',
+        data: { label: 'Output' },
+        position: { x: 700, y: 50 },
+        targetPosition: Position.Left,
+      },
+    ],
+    edges: [
+      {
+        id: 'e0-1',
+        source: '0',
+        target: '1',
+        animated: true,
+        style: { stroke: '#fff' },
+      },
+      {
+        id: 'e1-999',
+        source: '1',
+        target: '999',
+        animated: true,
+        style: { stroke: '#fff' },
+      },
+    ]
+  },
+  '2': {
+    nodes: [
+      {
+        
+        id: '0',
+        type: 'input',
+        data: { label: 'Input' },
         position: { x: 0, y: 50 },
         sourcePosition: Position.Right,
       },
@@ -68,14 +105,12 @@ const CustomNodeFlow = () => {
       {
         id: '999',
         type: 'output',
-        data: { label: 'Product' },
+        data: { label: 'Output' },
         position: { x: 700, y: 50 },
         targetPosition: Position.Left,
       },
-      
-    ]);
-
-    setEdges([
+    ],
+    edges: [
       {
         id: 'e0-1',
         source: '0',
@@ -132,42 +167,38 @@ const CustomNodeFlow = () => {
         animated: true,
         style: { stroke: '#fff' },
       },
-    ]);
-  }, []);
+    ]
+  }
+}
 
-  const onConnect = React.useCallback(
-    (params) => setEdges((eds) => addEdge({ ...params, animated: true, style: { stroke: '#fff' } }, eds)),
-    []
-  );
-  
-  return (
-    <ReactFlow
-      nodes={nodes}
-      edges={edges}
-      onNodesChange={onNodesChange}
-      onEdgesChange={onEdgesChange}
-      onConnect={onConnect}
-      style={{ background: '#111111' }}
-      nodeTypes={nodeTypes}
-      connectionLineStyle={connectionLineStyle}
-      snapToGrid={true}
-      snapGrid={snapGrid}
-      defaultZoom={1.5}
-      fitView
-      attributionPosition="bottom-left"
-    >
-      <MiniMap
-        nodeStrokeColor={(n: any) => {
-          if (n.type === 'input') return '#0041d0';
-          if (n.type === 'selectorNode') return '#000000';
-          if (n.type === 'output') return '#ff0072';
-          return '#000000'
-        }}
-        nodeColor={'#ffffff'}
-      />
-      <Controls />
-    </ReactFlow>
-  );
-};
 
-export default CustomNodeFlow;
+export default function useModule() {
+  const { moduleId } = useParams();
+  const [nodes, setNodes] = React.useState<Node[]>([]);
+  const [edges, setEdges] = React.useState<Edge[]>([]);
+
+  React.useEffect(() => {
+    setNodes(makeNodes(moduleId));
+    setEdges(makeEdges(moduleId));   
+  }, [moduleId])
+
+  return {
+    moduleId,
+    nodes,
+    edges
+  }
+}
+
+function makeNodes (id: string | undefined): Node[] {
+  if(id && id in dummyData){
+    return dummyData[id].nodes;
+  }
+  return [];
+}
+
+function makeEdges (id: string | undefined): Edge[] {
+  if(id && id in dummyData){
+    return dummyData[id].edges;
+  }
+  return [];
+}
