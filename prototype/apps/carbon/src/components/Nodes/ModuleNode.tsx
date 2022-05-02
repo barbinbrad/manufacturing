@@ -9,7 +9,9 @@ type Props = {
 
 type Data = {
   title: string;
-  onChange: () => void;
+  moduleId: string;
+  parentId: string;
+  onKeyDown: () => void;
 }
 
 // eslint-disable-next-line react/display-name
@@ -23,9 +25,9 @@ export default React.memo(({ data, isConnectable } : Props) => {
         onConnect={(params: any) => console.log('handle onConnect', params)}
         isConnectable={isConnectable}
       />
-      <Process >
+      <Module >
         {data.title}
-      </Process>
+      </Module>
       
       <Handle
         type="source"
@@ -38,7 +40,7 @@ export default React.memo(({ data, isConnectable } : Props) => {
   );
 });
 
-const Process = styled.div`
-  background: #ffff00;
+const Module = styled.div`
+  background: #ff0000;
   padding: 1rem;
 `

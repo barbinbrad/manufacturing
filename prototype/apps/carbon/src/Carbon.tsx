@@ -3,8 +3,10 @@ import { Routes, Route } from 'react-router-dom';
 import CatchError from './components/CatchError';
 import AppLauncher from './AppLauncher';
 import Base from './Base';
-import Flow from './Flow';
+import Explorer from './Explorer';
 import Module from './Module';
+
+export type Props = {};
 
 const Carbon: React.FC<Props> = props => {
   return (
@@ -12,7 +14,7 @@ const Carbon: React.FC<Props> = props => {
       <Routes>
         <Route path="/" element={<Base />}>
           <Route index element={<AppLauncher />} />
-          <Route path="module" element={<Flow />}>
+          <Route path="module" element={<Explorer />}>
             <Route path=":moduleId" element={<Module />} />
             {/* <Route path="new" element={<NewModule />} />
             <Route index element={<ModuleExplorer />} /> */}
@@ -22,9 +24,5 @@ const Carbon: React.FC<Props> = props => {
     </CatchError>
   )
 };
-
-export type Props = {
-  
-}
 
 export default Carbon;

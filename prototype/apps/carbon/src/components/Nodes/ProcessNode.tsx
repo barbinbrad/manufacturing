@@ -41,4 +41,4 @@ export default React.memo(({ data, isConnectable } : Props) => {
 const Process = styled.div`
   background: #ffff00;
   padding: 1rem;
-`
+`;
