@@ -1,6 +1,6 @@
 import * as React from 'react';
-
 import { Handle, Position } from 'react-flow-renderer';
+import styled from 'styled-components';
 
 type Props = {
   data: Data;
@@ -9,6 +9,7 @@ type Props = {
 
 type Data = {
   title: string;
+  moduleId: string;
   onChange: () => void;
 }
 
@@ -23,9 +24,9 @@ export default React.memo(({ data, isConnectable } : Props) => {
         onConnect={(params: any) => console.log('handle onConnect', params)}
         isConnectable={isConnectable}
       />
-      <div>
+      <Module >
         {data.title}
-      </div>
+      </Module>
       
       <Handle
         type="source"
@@ -37,3 +38,8 @@ export default React.memo(({ data, isConnectable } : Props) => {
     </>
   );
 });
+
+const Module = styled.div`
+  background: #ff0000;
+  padding: 1rem;
+`

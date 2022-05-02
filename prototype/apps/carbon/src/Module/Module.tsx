@@ -1,13 +1,16 @@
 
 import * as React from 'react';
-import ReactFlow, { useNodesState, useEdgesState, addEdge, MiniMap, Controls } from 'react-flow-renderer';
+import ReactFlow, { useNodesState, useEdgesState, addEdge, MiniMap, Node, Controls } from 'react-flow-renderer';
+import { useNavigate } from 'react-router-dom';
 import useModule from './useModule';
-import ManufacturingNode from '../components/Nodes/ManufacturingNode';
+import ModuleNode from '../components/Nodes/ModuleNode';
+import ProcessNode from '../components/Nodes/ProcessNode';
 
 const connectionLineStyle = { stroke: '#fff' };
 const snapGrid = [10, 10] as [number, number];
 const nodeTypes = {   
-  manufacturingNode: ManufacturingNode,
+  module: ModuleNode,
+  process: ProcessNode,
 };
 
 export default function Container() {
@@ -16,18 +19,30 @@ export default function Container() {
 }
 
 export function Module(props: ReturnType<typeof useModule>) {
+  const {
+    graph
+  } = props;
+
+  const navigate = useNavigate();
+  
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
 
   React.useEffect( () => {
-    setNodes(props.nodes);
-    setEdges(props.edges);
-  }, [props.nodes, props.edges]);
+    setNodes(graph.nodes);
+    setEdges(graph.edges);
+  }, [graph]);
 
-  const onConnect = React.useCallback(
+  const handleConnect = React.useCallback(
     (params) => setEdges((eds) => addEdge({ ...params, animated: true, style: { stroke: '#fff' } }, eds)),
     []
   );
+
+  const handleClick = (event: React.MouseEvent, node: Node<any>) => {
+    if (node.type === 'module') {
+      navigate(`/module/${node.data.moduleId}`);
+    }
+  }
   
   return (
     <ReactFlow
@@ -35,7 +50,8 @@ export function Module(props: ReturnType<typeof useModule>) {
       edges={edges}
       onNodesChange={onNodesChange}
       onEdgesChange={onEdgesChange}
-      onConnect={onConnect}
+      onConnect={handleConnect}
+      onNodeClick={handleClick}
       style={{ background: '#111111' }}
       nodeTypes={nodeTypes}
       connectionLineStyle={connectionLineStyle}
