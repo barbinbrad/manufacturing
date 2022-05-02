@@ -1,12 +1,15 @@
 # Manufacturing Information System
 
-This is a repo for designing manufacturing information systeml
+This is a monorepo a manufacturing information system prototype
 ## What's inside?
 
 This repo includes the following packages and apps:
 
 ### Contents
 
-- `notes`: Thought processes for system design
-- `prototype`: A turborepo for building the frontend
+- `apps/carbon`: Graph-based UI for manufacturing routing
+- `packages/logger`: Shared logging library
+- `packages/tsconfig`: Inheritable tsconfigs
+- `packages/ui`: A set of reusable UI components
+
 
