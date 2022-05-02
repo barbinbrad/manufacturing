@@ -10,7 +10,8 @@ type Props = {
 type Data = {
   title: string;
   moduleId: string;
-  onChange: () => void;
+  parentId: string;
+  onKeyDown: () => void;
 }
 
 // eslint-disable-next-line react/display-name

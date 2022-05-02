@@ -28,10 +28,25 @@ export function Module(props: ReturnType<typeof useModule>) {
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
 
-  React.useEffect( () => {
+  React.useEffect(() => {
     setNodes(graph.nodes);
     setEdges(graph.edges);
   }, [graph]);
+
+  React.useEffect(() => {
+    const handleKeydown = (event: KeyboardEvent) => {
+      switch(event.key) {
+        case 'Escape':
+          if (graph.parentId) {
+            navigate(`/module/${graph.parentId}`);
+          }
+          break;
+      }
+    };
+
+    window.addEventListener('keydown', handleKeydown);
+    return () => window.removeEventListener('keydown', handleKeydown);
+  }, [graph.parentId])
 
   const handleConnect = React.useCallback(
     (params) => setEdges((eds) => addEdge({ ...params, animated: true, style: { stroke: '#fff' } }, eds)),
@@ -42,7 +57,9 @@ export function Module(props: ReturnType<typeof useModule>) {
     if (node.type === 'module') {
       navigate(`/module/${node.data.moduleId}`);
     }
-  }
+  };
+
+
   
   return (
     <ReactFlow

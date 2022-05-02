@@ -1,22 +1,20 @@
 import * as React from 'react';
-import { Node, Edge } from 'react-flow-renderer';
 import { useParams } from 'react-router-dom';
 import data from './data';
 import { FlowGraph } from './types';
 
+const emptyGraph = {
+  nodes: [],
+  edges: [],
+  parentId: null,
+};
 
 export default function useModule() {
   const { moduleId } = useParams();
-  const [graph, setGraph] = React.useState<FlowGraph>({
-    nodes: [],
-    edges: []
-  });
+  const [graph, setGraph] = React.useState<FlowGraph>(emptyGraph);
 
   React.useEffect(() => {
-    setGraph({
-      nodes: makeNodes(moduleId),
-      edges: makeEdges(moduleId)
-    }); 
+    setGraph(getGraph(moduleId)); 
   }, [moduleId])
 
   return {
@@ -25,16 +23,9 @@ export default function useModule() {
   }
 }
 
-function makeNodes (id: string | undefined): Node[] {
+function getGraph (id: string | undefined): FlowGraph {
   if(id && id in data){
-    return data[id].nodes;
+    return data[id];
   }
-  return [];
-}
-
-function makeEdges (id: string | undefined): Edge[] {
-  if(id && id in data){
-    return data[id].edges;
-  }
-  return [];
+  return emptyGraph;
 }

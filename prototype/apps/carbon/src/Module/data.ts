@@ -8,7 +8,7 @@ const data: { [key: string]: FlowGraph; } = {
         
         id: '0',
         type: 'input',
-        data: { label: 'Input' },
+        data: { label: 'Order' },
         position: { x: 0, y: 50 },
         sourcePosition: Position.Right,
       },
@@ -21,7 +21,7 @@ const data: { [key: string]: FlowGraph; } = {
       {
         id: '999',
         type: 'output',
-        data: { label: 'Output' },
+        data: { label: 'Product' },
         position: { x: 700, y: 50 },
         targetPosition: Position.Left,
       },
@@ -41,7 +41,8 @@ const data: { [key: string]: FlowGraph; } = {
         animated: true,
         style: { stroke: '#fff' },
       },
-    ]
+    ],
+    parentId: null,
   },
   '2': {
     nodes: [
@@ -154,7 +155,8 @@ const data: { [key: string]: FlowGraph; } = {
         animated: true,
         style: { stroke: '#fff' },
       },
-    ]
+    ],
+    parentId: '1',
   }
 }
 
