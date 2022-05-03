@@ -63,7 +63,7 @@ const data: { [key: string]: FlowGraph; } = {
       {
         id: '4',
         type: 'split',
-        data: { title: 'Split' },
+        data: { title: 'Split', outputs: 2 },
         position: { x: 500, y: 50 },
       },
       {

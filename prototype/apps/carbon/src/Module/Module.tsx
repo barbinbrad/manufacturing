@@ -1,8 +1,10 @@
 
 import * as React from 'react';
-import ReactFlow, { useNodesState, useEdgesState, useKeyPress, addEdge, MiniMap, Node, Controls } from 'react-flow-renderer';
+import ReactFlow, { useNodesState, useEdgesState, useKeyPress, addEdge, Node, Controls } from 'react-flow-renderer';
 import { useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
 import useModule from './useModule';
+import TopBar from './TopBar';
 import ModuleNode from '../components/Flow/Nodes/ModuleNode';
 import ProcessNode from '../components/Flow/Nodes/ProcessNode';
 import SplitNode from '../components/Flow/Nodes/SplitNode';
@@ -68,32 +70,55 @@ export function Module(props: ReturnType<typeof useModule>) {
   };
   
   return (
-    <ReactFlow
-      nodes={nodes}
-      edges={edges}
-      onNodesChange={onNodesChange}
-      onEdgesChange={onEdgesChange}
-      onConnect={handleConnect}
-      onNodeClick={handleClick}
-      nodeTypes={nodeTypes}
-      edgeTypes={edgeTypes}
-      connectionLineStyle={connectionLineStyle}
-      snapToGrid={true}
-      snapGrid={snapGrid}
-      defaultZoom={1.5}
-      fitView
-      attributionPosition="bottom-left"
-    >
-      <MiniMap
-        nodeStrokeColor={(n: any) => {
-          if (n.type === 'input') return '#0041d0';
-          if (n.type === 'selectorNode') return '#000000';
-          if (n.type === 'output') return '#ff0072';
-          return '#000000'
-        }}
-        nodeColor={'#ffffff'}
-      />
-      <Controls />
-    </ReactFlow>
+    <>
+      <TopBar />
+      <Body>
+        <ReactFlow
+          nodes={nodes}
+          edges={edges}
+          onNodesChange={onNodesChange}
+          onEdgesChange={onEdgesChange}
+          onConnect={handleConnect}
+          onNodeClick={handleClick}
+          nodeTypes={nodeTypes}
+          edgeTypes={edgeTypes}
+          connectionLineStyle={connectionLineStyle}
+          snapToGrid={true}
+          snapGrid={snapGrid}
+          defaultZoom={1.5}
+          fitView
+          attributionPosition="bottom-left"
+        >
+          {/* <MiniMap
+            nodeStrokeColor={(n: any) => {
+              if (n.type === 'input') return '#0041d0';
+              if (n.type === 'selectorNode') return '#000000';
+              if (n.type === 'output') return '#ff0072';
+              return '#000000'
+            }}
+            nodeColor={'#ffffff'}
+          /> */}
+          <Controls />
+        </ReactFlow>
+      </Body>
+    </>
   );
 }
+
+const Body = styled.div`
+  box-sizing: border-box;
+  margin: 0;
+  min-width: 0;
+  height: 65%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  resize: vertical;
+  overflow: auto;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  position: relative;
+  min-height: 150px;
+`;
