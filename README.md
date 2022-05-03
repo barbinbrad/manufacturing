@@ -15,4 +15,4 @@ Here's how this repo works:
 2. Update a prototype to think through the problem
 3. Repeat
 
-![alt text](https://github.com/barbin/manufacturing/blob/main/notes/screenshots/2022-05-03.jpg?raw=true)
+![screenshot](https://github.com/barbinbrad/manufacturing/blob/main/notes/screenshots/2022-05-03.jpg?raw=true)
