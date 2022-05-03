@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Handle, Position } from 'react-flow-renderer';
-import styled from 'styled-components';
+import Node from './Node';
 
 type Props = {
   data: Data;
@@ -9,7 +9,9 @@ type Props = {
 
 type Data = {
   title: string;
-  onChange: () => void;
+  moduleId: string;
+  parentId: string;
+  onKeyDown: () => void;
 }
 
 // eslint-disable-next-line react/display-name
@@ -23,9 +25,9 @@ export default React.memo(({ data, isConnectable } : Props) => {
         onConnect={(params: any) => console.log('handle onConnect', params)}
         isConnectable={isConnectable}
       />
-      <Process >
+      <Node type="module" title="Module" >
         {data.title}
-      </Process>
+      </Node>
       
       <Handle
         type="source"
@@ -37,8 +39,3 @@ export default React.memo(({ data, isConnectable } : Props) => {
     </>
   );
 });
-
-const Process = styled.div`
-  background: #ffff00;
-  padding: 1rem;
-`;
