@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import useModule from './useModule';
 import ModuleNode from '../components/Flow/Nodes/ModuleNode';
 import ProcessNode from '../components/Flow/Nodes/ProcessNode';
+import SplitNode from '../components/Flow/Nodes/SplitNode';
 import DeleteEdge from '../components/Flow/Edges/DeleteEdge';
 
 const connectionLineStyle = { stroke: '#fff' };
@@ -12,6 +13,7 @@ const snapGrid = [10, 10] as [number, number];
 const nodeTypes = {   
   module: ModuleNode,
   process: ProcessNode,
+  split: SplitNode,
 };
 
 const edgeTypes = {
@@ -27,7 +29,6 @@ export function Module(props: ReturnType<typeof useModule>) {
   const {
     graph
   } = props;
-
   
   const navigate = useNavigate();
   const spacePressed = useKeyPress('Space');
@@ -62,7 +63,7 @@ export function Module(props: ReturnType<typeof useModule>) {
 
   const handleClick = (event: React.MouseEvent, node: Node<any>) => {
     if (node.type === 'module' && spacePressed) {
-      navigate(`/module/${node.data.moduleId}`);
+      navigate(`/module/${node.id}`);
     }
   };
   

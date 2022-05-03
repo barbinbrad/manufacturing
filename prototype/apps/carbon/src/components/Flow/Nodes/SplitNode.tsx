@@ -3,17 +3,11 @@ import { Handle, Position } from 'react-flow-renderer';
 import Node from './Node';
 
 type Props = {
-  data: Data;
   isConnectable: boolean;
 };
 
-type Data = {
-  title: string;
-  onChange: () => void;
-}
-
 // eslint-disable-next-line react/display-name
-export default React.memo(({ data, isConnectable } : Props) => {
+export default React.memo(({ isConnectable } : Props) => {
   return (
     <>
       <Handle
@@ -23,15 +17,23 @@ export default React.memo(({ data, isConnectable } : Props) => {
         onConnect={(params: any) => console.log('handle onConnect', params)}
         isConnectable={isConnectable}
       />
-
-      <Node type="process" title={data.title}>
+      <Node type="utility" title="Split" >
         <div></div>
       </Node>
       
       <Handle
         type="source"
+        id='1'
         position={Position.Right}
-        style={{ background: '#555' }}
+        style={{ background: '#555', top: '25%' }}
+        isConnectable={isConnectable}
+      />
+
+      <Handle
+        type="source"
+        id='2'
+        position={Position.Right}
+        style={{ background: '#555', top: '75%' }}
         isConnectable={isConnectable}
       />
       

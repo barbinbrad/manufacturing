@@ -8,7 +8,7 @@ const contrastThreshold = 3;
 
 const colors = {
   accent: {
-    purple: '#651FFF',
+    purple: '#5219d0',
     pink: '#ff008c',
     blue: '#00aeff',
     yellow: '#ffc400',

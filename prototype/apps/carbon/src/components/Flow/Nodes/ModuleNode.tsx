@@ -25,8 +25,8 @@ export default React.memo(({ data, isConnectable } : Props) => {
         onConnect={(params: any) => console.log('handle onConnect', params)}
         isConnectable={isConnectable}
       />
-      <Node type="module" title="Module" >
-        {data.title}
+      <Node type="module" title={data.title} >
+        <div></div>
       </Node>
       
       <Handle

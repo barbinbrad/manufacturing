@@ -1,4 +1,5 @@
 import React from 'react';
+import { TrashIcon } from '@heroicons/react/outline'; 
 import { getBezierPath, getEdgeCenter, Position } from 'react-flow-renderer';
 
 const foreignObjectSize = 40;
@@ -62,12 +63,10 @@ export default function CustomEdge({
         y={edgeCenterY - foreignObjectSize / 2}
         className="edgebutton-foreignobject"
         requiredExtensions="http://www.w3.org/1999/xhtml"
-      >
-        <body>
-          <button className="edgebutton" onClick={(event) => onEdgeClick(event, id)}>
-            ×
-          </button>
-        </body>
+      >    
+        <button className="edgebutton" onClick={(event) => onEdgeClick(event, id)}>
+          <TrashIcon height={16} width={16}/>
+        </button>
       </foreignObject>
     </>
   );

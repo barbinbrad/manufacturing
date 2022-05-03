@@ -1,8 +1,9 @@
 import * as React from 'react';
+import { DotsVerticalIcon } from '@heroicons/react/outline'
 import styled from 'styled-components';
 
 export type Props = {
-  type: 'module' | 'process' | 'split',
+  type: 'module' | 'process' | 'utility',
   title: string,
   children: React.ReactNode
 }
@@ -22,7 +23,7 @@ const config: {[key: string]: Config} = {
     color: '#111111'
   },
   'utility' : {
-    background: '#ff008c',
+    background: '#ff0072',
     color: '#111111'
   },
 };
@@ -31,7 +32,7 @@ const Node = (props: Props) => {
   
   return (
     <Wrapper>
-      <Theme {...props} />
+      <Element {...props} />
       <Footer></Footer>
     </Wrapper>
   );
@@ -45,10 +46,11 @@ const Wrapper = styled.div`
   min-width: 0px;
   padding: 0px;
   position: relative;
-  border: ${props => props.theme.borders[1] + props.theme.colors.dark};
+  border: ${props => props.theme.borders[1] + props.theme.colors.grey[600]};
+  border-radius: 4px;
 `;
 
-const Theme = ({type, title, children}: Props) => {
+const Element = ({type, title, children}: Props) => {
   const cfg = React.useMemo(() => {
     return config[type];
   }, [type])
@@ -60,12 +62,14 @@ const Theme = ({type, title, children}: Props) => {
       borderRadius: '3px'
     }}>
       <Header>
-          <Title>{title}</Title>
-          <DeleteIcon></DeleteIcon>
-        </Header>
-        <Body>
-          { children }
-        </Body>
+        <Title>{title}</Title>
+        <Action>
+          <DotsVerticalIcon width={16} height={16} color={cfg.color}/>
+        </Action>
+      </Header>
+      <Body>
+        { children }
+      </Body>
     </div>
   )
 }
@@ -88,13 +92,16 @@ const Title = styled.div`
   min-width: 0;
 `;
 
-const DeleteIcon = styled.div`
+const Action = styled.div`
   box-sizing: border-box;
   margin: 0px;
   min-width: 0px;
-  color: ${props => props.theme.colors.text.secondary};
+  color: ${props => props.theme.colors.text.primary};
   cursor: pointer;
-  opacity: 0.25;
+  opacity: 0.75;
+  &:hover {
+    opacity: 1.0;
+  }
 `;
 
 const Body = styled.div`
