@@ -6,7 +6,7 @@ export type Props = {};
 export default function TopBar (props: Props) {
   return (
     <Header>
-      <img alt="Logo" src="/logo.png" height={20} width={20}/>
+      <img alt="Logo" src="/logo-white.png" height={30} width={30}/>
     </Header>
   )
 }
