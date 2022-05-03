@@ -7,9 +7,15 @@ const space = [0, 4, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80];
 const contrastThreshold = 3;
 
 const colors = {
-  accent: '#651FFF',
+  accent: {
+    purple: '#651FFF',
+    pink: '#ff008c',
+    blue: '#00aeff',
+    yellow: '#ffc400',
+    green: '#3ef794',
+  } ,
 
-  dark: '#000',
+  dark: '#111111',
 
   light: '#FFFFFF',
 
@@ -66,7 +72,6 @@ const colors = {
 
   subtle: blueGrey[50],
   link: lightBlue[500],
-  bgTerminal: '#010B1C',
   danger: pink.A400,
   highlight: yellow[50],
   disabled: blueGrey[500],

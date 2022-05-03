@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Handle, Position } from 'react-flow-renderer';
-import styled from 'styled-components';
+import Node from './Node';
 
 type Props = {
   data: Data;
@@ -23,9 +23,10 @@ export default React.memo(({ data, isConnectable } : Props) => {
         onConnect={(params: any) => console.log('handle onConnect', params)}
         isConnectable={isConnectable}
       />
-      <Process >
+
+      <Node type="process" title="Process">
         {data.title}
-      </Process>
+      </Node>
       
       <Handle
         type="source"
@@ -37,8 +38,3 @@ export default React.memo(({ data, isConnectable } : Props) => {
     </>
   );
 });
-
-const Process = styled.div`
-  background: #ffff00;
-  padding: 1rem;
-`;

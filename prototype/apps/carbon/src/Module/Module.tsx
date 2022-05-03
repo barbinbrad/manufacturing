@@ -1,10 +1,11 @@
 
 import * as React from 'react';
-import ReactFlow, { useNodesState, useEdgesState, addEdge, MiniMap, Node, Controls } from 'react-flow-renderer';
+import ReactFlow, { useNodesState, useEdgesState, useKeyPress, addEdge, MiniMap, Node, Controls } from 'react-flow-renderer';
 import { useNavigate } from 'react-router-dom';
 import useModule from './useModule';
-import ModuleNode from '../components/Nodes/ModuleNode';
-import ProcessNode from '../components/Nodes/ProcessNode';
+import ModuleNode from '../components/Flow/Nodes/ModuleNode';
+import ProcessNode from '../components/Flow/Nodes/ProcessNode';
+import DeleteEdge from '../components/Flow/Edges/DeleteEdge';
 
 const connectionLineStyle = { stroke: '#fff' };
 const snapGrid = [10, 10] as [number, number];
@@ -12,6 +13,10 @@ const nodeTypes = {
   module: ModuleNode,
   process: ProcessNode,
 };
+
+const edgeTypes = {
+  deleteEdge: DeleteEdge,
+}
 
 export default function Container() {
   const state = useModule();
@@ -23,7 +28,9 @@ export function Module(props: ReturnType<typeof useModule>) {
     graph
   } = props;
 
+  
   const navigate = useNavigate();
+  const spacePressed = useKeyPress('Space');
   
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
@@ -49,17 +56,15 @@ export function Module(props: ReturnType<typeof useModule>) {
   }, [graph.parentId])
 
   const handleConnect = React.useCallback(
-    (params) => setEdges((eds) => addEdge({ ...params, animated: true, style: { stroke: '#fff' } }, eds)),
+    (params) => setEdges((eds) => addEdge({ ...params, animated: true, style: { stroke: '#fff' }, type: 'deleteEdge' }, eds)),
     []
   );
 
   const handleClick = (event: React.MouseEvent, node: Node<any>) => {
-    if (node.type === 'module') {
+    if (node.type === 'module' && spacePressed) {
       navigate(`/module/${node.data.moduleId}`);
     }
   };
-
-
   
   return (
     <ReactFlow
@@ -69,8 +74,8 @@ export function Module(props: ReturnType<typeof useModule>) {
       onEdgesChange={onEdgesChange}
       onConnect={handleConnect}
       onNodeClick={handleClick}
-      style={{ background: '#111111' }}
       nodeTypes={nodeTypes}
+      edgeTypes={edgeTypes}
       connectionLineStyle={connectionLineStyle}
       snapToGrid={true}
       snapGrid={snapGrid}
