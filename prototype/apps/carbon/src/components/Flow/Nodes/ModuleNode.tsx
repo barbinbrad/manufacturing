@@ -4,7 +4,6 @@ import Node from './Node';
 
 type Props = {
   data: Data;
-  isConnectable: boolean;
 };
 
 type Data = {
@@ -15,7 +14,7 @@ type Data = {
 }
 
 // eslint-disable-next-line react/display-name
-export default React.memo(({ data, isConnectable } : Props) => {
+export default React.memo(({ data } : Props) => {
   return (
     <>
       <Handle
@@ -23,7 +22,7 @@ export default React.memo(({ data, isConnectable } : Props) => {
         position={Position.Left}
         style={{ background: '#555' }}
         onConnect={(params: any) => console.log('handle onConnect', params)}
-        isConnectable={isConnectable}
+        isConnectable={true}
       />
       <Node type="module" title={data.title} >
         <div></div>
@@ -33,7 +32,7 @@ export default React.memo(({ data, isConnectable } : Props) => {
         type="source"
         position={Position.Right}
         style={{ background: '#555' }}
-        isConnectable={isConnectable}
+        isConnectable={true}
       />
       
     </>

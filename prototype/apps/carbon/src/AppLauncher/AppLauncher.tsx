@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Flex, Indicator } from 'ui';
 import useAppLauncher from './useAppLauncher';
 
@@ -8,9 +9,9 @@ export default function Container() {
 }
 
 export function AppLauncher(props: ReturnType<typeof useAppLauncher>) {
-  return (
-    <Flex height="180px" justifyContent="center" alignItems="center" flex="1">
-      <Indicator />
-    </Flex>
-  );
+  const navigate = useNavigate();
+  React.useEffect(() => {
+    navigate(`/module/2`);
+  }, [])
+  return <></>;
 }

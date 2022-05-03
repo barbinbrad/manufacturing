@@ -5,15 +5,15 @@ import { getBezierPath, getEdgeCenter, Position } from 'react-flow-renderer';
 const foreignObjectSize = 40;
 
 export type Props = {
-  id: string,
-  sourceX: number,
-  sourceY: number,
-  targetX: number,
-  targetY: number,
-  sourcePosition?: Position,
-  targetPosition?: Position,
-  style?: any,
-  markerEnd?: string,
+  id: string;
+  sourceX: number;
+  sourceY: number;
+  targetX: number;
+  targetY: number;
+  sourcePosition?: Position;
+  targetPosition?: Position;
+  style?: any;
+  markerEnd?: string;
 }
 
 const onEdgeClick = (event: React.MouseEvent, id: string) => {

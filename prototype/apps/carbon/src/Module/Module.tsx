@@ -7,6 +7,7 @@ import useModule from './useModule';
 import TopBar from './TopBar';
 import ModuleNode from '../components/Flow/Nodes/ModuleNode';
 import ProcessNode from '../components/Flow/Nodes/ProcessNode';
+import ScriptNode from '../components/Flow/Nodes/ScriptNode';
 import SplitNode from '../components/Flow/Nodes/SplitNode';
 import DeleteEdge from '../components/Flow/Edges/DeleteEdge';
 
@@ -15,6 +16,7 @@ const snapGrid = [10, 10] as [number, number];
 const nodeTypes = {   
   module: ModuleNode,
   process: ProcessNode,
+  script: ScriptNode,
   split: SplitNode,
 };
 

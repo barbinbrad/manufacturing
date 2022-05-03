@@ -3,37 +3,44 @@ import { DotsVerticalIcon } from '@heroicons/react/outline'
 import styled from 'styled-components';
 
 export type Props = {
-  type: 'module' | 'process' | 'utility',
-  title: string,
-  children: React.ReactNode
+  type: 'module' | 'process' | 'utility' | 'script';
+  title: string;
+  children: React.ReactNode;
 }
 
 export type Config = {
   background: string;
   color: string;
+  footer: string;
 }
 
 const config: {[key: string]: Config} = {
   'module': {
     background: '#651FFF',
-    color: '#ffffff'
+    color: '#ffffff',
+    footer: 'Module',
   },
   'process': {
     background: '#3ef794',
-    color: '#111111'
+    color: '#111111',
+    footer: 'Process',
   },
   'utility' : {
     background: '#ff0072',
-    color: '#111111'
+    color: '#111111',
+    footer: 'Utility',
+  },
+  'script' : {
+    background: '#ffc400',
+    color: '#111111',
+    footer: 'Script'
   },
 };
 
-const Node = (props: Props) => {
-  
+const Node = (props: Props) => { 
   return (
     <Wrapper>
       <Element {...props} />
-      <Footer></Footer>
     </Wrapper>
   );
 };
@@ -70,6 +77,7 @@ const Element = ({type, title, children}: Props) => {
       <Body>
         { children }
       </Body>
+      <Footer>{cfg.footer}</Footer>
     </div>
   )
 }
@@ -116,9 +124,10 @@ const Footer = styled.div`
   margin: 0px;
   min-width: 0px;
   font-size: 11px;
+  font-family: ${props => props.theme.fonts.mono};
   color: ${props => props.theme.colors.text.secondary};
   position: absolute;
-  bottom: -8px;
+  bottom: 0px;
   top: auto;
   left: 0px;
   transform: translateY(100%);

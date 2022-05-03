@@ -3,8 +3,7 @@ import { Handle, Position } from 'react-flow-renderer';
 import Node from './Node';
 
 type Props = {
-  isConnectable: boolean,
-  data?: Data,
+  data?: Data;
 };
 
 type Data = {
@@ -12,9 +11,9 @@ type Data = {
 }
 
 // eslint-disable-next-line react/display-name
-export default React.memo(({ data = { outputs: 2}, isConnectable } : Props) => {
-  const keys = [...Array(data.outputs).keys()];
-  console.log(keys);
+export default React.memo(({ data = { outputs: 2} } : Props) => {
+  const keys = [...Array(data.outputs + 1).keys()];
+  keys.shift();
   const multiplier = 1/(keys.length + 1) * 100;
 
   return (
@@ -24,7 +23,7 @@ export default React.memo(({ data = { outputs: 2}, isConnectable } : Props) => {
         position={Position.Left}
         style={{ background: '#555' }}
         onConnect={(params: any) => console.log('handle onConnect', params)}
-        isConnectable={isConnectable}
+        isConnectable={true}
       />
       <Node type="utility" title={`Split-${data.outputs}`} >
         <div></div>
@@ -32,11 +31,11 @@ export default React.memo(({ data = { outputs: 2}, isConnectable } : Props) => {
       
       { keys.map(key => <Handle
         type="source"
-        id={`${key+1}`}
+        id={`${key}`}
         key={key}
         position={Position.Right}
-        style={{ background: '#555', top: `${multiplier * (key + 1)}%` }}
-        isConnectable={isConnectable}
+        style={{ background: '#555', top: `${multiplier * key}%` }}
+        isConnectable={true}
       />)}
       
     </>
