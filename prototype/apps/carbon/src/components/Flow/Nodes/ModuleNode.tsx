@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Handle, Position } from 'react-flow-renderer';
-import Node from './Node';
+import Node, { NodeContext } from './Node';
 
 type Props = {
   data: Data;
@@ -15,6 +15,8 @@ type Data = {
 
 // eslint-disable-next-line react/display-name
 export default React.memo(({ data } : Props) => {
+  const nodeTheme = React.useContext(NodeContext);
+
   return (
     <>
       <Handle

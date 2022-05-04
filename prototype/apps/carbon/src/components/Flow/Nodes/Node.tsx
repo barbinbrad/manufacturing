@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { DotsVerticalIcon } from '@heroicons/react/outline'
 import styled from 'styled-components';
+import { theme } from 'ui';
 
 export type Props = {
   type: 'module' | 'process' | 'utility' | 'script';
@@ -8,44 +9,78 @@ export type Props = {
   children: React.ReactNode;
 }
 
-export type Config = {
+export type NodeTheme = {
   background: string;
   color: string;
   footer: string;
 }
 
-const config: {[key: string]: Config} = {
+const themeMap: {[key: string]: NodeTheme} = {
   'module': {
-    background: '#651FFF',
-    color: '#ffffff',
+    background: theme.colors.accent.purple,
+    color: theme.colors.text.onDark,
     footer: 'Module',
   },
   'process': {
-    background: '#3ef794',
-    color: '#111111',
+    background: theme.colors.accent.green,
+    color: theme.colors.text.onLight,
     footer: 'Process',
   },
   'utility' : {
-    background: '#ff0072',
-    color: '#111111',
+    background: theme.colors.accent.pink,
+    color: theme.colors.text.onLight,
     footer: 'Utility',
   },
   'script' : {
-    background: '#ffc400',
-    color: '#111111',
+    background: theme.colors.accent.yellow,
+    color: theme.colors.text.onLight,
     footer: 'Script'
   },
+  'default': {
+    background: theme.colors.light,
+    color: theme.colors.text.onLight,
+    footer: 'Undefined',
+  },
+  
 };
 
+export const NodeContext = React.createContext<NodeTheme>(themeMap['default']);
+
 const Node = (props: Props) => { 
+  const [config] = React.useState(themeMap[props.type])
   return (
-    <Wrapper>
-      <Element {...props} />
-    </Wrapper>
+    <NodeContext.Provider value={config} >
+      <Wrapper>
+        <Element {...props} />
+      </Wrapper>
+    </NodeContext.Provider>
   );
 };
 
 export default Node;
+
+const Element = ({title, children}: Props) => {
+  const config = React.useContext(NodeContext);
+
+  return (
+    <div style={{
+      background: config.background, 
+      color: config.color,
+      borderRadius: '3px'
+    }}>
+      <Header>
+        <Title>{title}</Title>
+        <Action>
+          <DotsVerticalIcon width={16} height={16} color={config.color}/>
+        </Action>
+      </Header>
+      <Body>
+        { children }
+      </Body>
+      <Footer>{config.footer}</Footer>
+    </div>
+  )
+};
 
 const Wrapper = styled.div`
   box-sizing: border-box;
@@ -56,31 +91,6 @@ const Wrapper = styled.div`
   border: ${props => props.theme.borders[1] + props.theme.colors.grey[600]};
   border-radius: 4px;
 `;
-
-const Element = ({type, title, children}: Props) => {
-  const cfg = React.useMemo(() => {
-    return config[type];
-  }, [type])
-
-  return (
-    <div style={{
-      background: cfg.background, 
-      color: cfg.color,
-      borderRadius: '3px'
-    }}>
-      <Header>
-        <Title>{title}</Title>
-        <Action>
-          <DotsVerticalIcon width={16} height={16} color={cfg.color}/>
-        </Action>
-      </Header>
-      <Body>
-        { children }
-      </Body>
-      <Footer>{cfg.footer}</Footer>
-    </div>
-  )
-}
 
 const Header = styled.div`
   box-sizing: border-box;

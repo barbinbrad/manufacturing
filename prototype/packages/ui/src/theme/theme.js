@@ -46,7 +46,7 @@ const colors = {
     // Text hints.
     hint: 'rgba(0, 0, 0, 0.24)',
     // On light backgrounds
-    onLight: '#324148',
+    onLight: 'rgba(0, 0, 0, 0.87)',
     // On dark backgrounds
     onDark: 'rgba(255, 255, 255, 0.87)',
   },

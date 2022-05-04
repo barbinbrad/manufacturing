@@ -5,6 +5,13 @@ This is a monorepo a manufacturing information system prototype
 
 This repo includes the following packages and apps:
 
+
+## How to run locally
+
+```bash
+npm run dev`
+```
+
 ### Contents
 
 - `apps/carbon`: Graph-based UI for manufacturing routing
