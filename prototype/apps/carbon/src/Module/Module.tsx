@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import ReactFlow, { useNodesState, useEdgesState, useKeyPress, addEdge, Node, Controls } from 'react-flow-renderer';
+import ReactFlow, { useNodesState, useEdgesState, useKeyPress, addEdge, Node, Controls, Background, BackgroundVariant } from 'react-flow-renderer';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import useModule from './useModule';
@@ -100,6 +100,7 @@ export function Module(props: ReturnType<typeof useModule>) {
             }}
             nodeColor={'#ffffff'}
           /> */}
+          <Background variant={BackgroundVariant.Dots} gap={10} size={0.5} />
           <Controls />
         </ReactFlow>
       </Body>

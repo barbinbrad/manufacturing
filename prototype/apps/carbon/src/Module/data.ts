@@ -64,13 +64,13 @@ const data: { [key: string]: FlowGraph; } = {
         id: '4',
         type: 'split',
         data: { title: 'Split', outputs: 2 },
-        position: { x: 500, y: 50 },
+        position: { x: 500, y: 0 },
       },
       {
         id: '5',
         type: 'process',
         data: { title: 'Spread' },
-        position: { x: 800, y: 0 },
+        position: { x: 800, y: -50 },
       },
       {
         id: '6',
