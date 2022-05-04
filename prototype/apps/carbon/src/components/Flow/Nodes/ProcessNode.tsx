@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { Handle, Position } from 'react-flow-renderer';
+import { Box, Flex } from 'ui';
+import Toggle from '../Inputs/Toggle';
 import Node from './Node';
 
 type Props = {
@@ -13,6 +15,12 @@ type Data = {
 
 // eslint-disable-next-line react/display-name
 export default React.memo(({ data } : Props) => {
+  const [toggled, setToggled] = React.useState(false);
+
+  const handleToggle = () => {
+    setToggled(t => !t);
+  };
+
   return (
     <>
       <Handle
@@ -24,7 +32,11 @@ export default React.memo(({ data } : Props) => {
       />
 
       <Node type="process" title={data.title}>
-        <div></div>
+        <Flex alignItems="center">
+          <Box width="100%">
+            <Toggle onToggle={handleToggle} isToggled={toggled} text="Alert" />
+          </Box>
+        </Flex>
       </Node>
       
       <Handle

@@ -1,5 +1,7 @@
 import * as React from 'react';
 import { Handle, Position } from 'react-flow-renderer';
+import { Box, Flex } from 'ui';
+import Toggle from '../Inputs/Toggle';
 import Node, { NodeContext } from './Node';
 
 type Props = {
@@ -16,6 +18,11 @@ type Data = {
 // eslint-disable-next-line react/display-name
 export default React.memo(({ data } : Props) => {
   const nodeTheme = React.useContext(NodeContext);
+  const [test, setTest] = React.useState(false);
+
+  const toggleTest = () => {
+    setTest(x => !x);
+  }
 
   return (
     <>
@@ -27,7 +34,11 @@ export default React.memo(({ data } : Props) => {
         isConnectable={true}
       />
       <Node type="module" title={data.title} >
-        <div></div>
+        <Flex alignItems="center">
+          <Box width="100%">
+            <Toggle onToggle={toggleTest} isToggled={test} text="Test" />
+          </Box>
+        </Flex>
       </Node>
       
       <Handle
