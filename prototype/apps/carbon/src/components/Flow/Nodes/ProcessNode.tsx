@@ -1,28 +1,53 @@
 import * as React from 'react';
 import { Handle, Position } from 'react-flow-renderer';
 import { Box, Flex } from 'ui';
-import Toggle from '../Inputs/Toggle';
+import SearchResult from '../Inputs/SearchResult';
 import Node from './Node';
 
 type Props = {
   data: Data;
 };
 
-type Data = {
-  title: string;
+export type Data = {
+  operation: string;
   onChange: () => void;
 }
 
 // eslint-disable-next-line react/display-name
 export default React.memo(({ data } : Props) => {
-  const [toggled, setToggled] = React.useState(false);
 
-  const handleToggle = () => {
-    setToggled(t => !t);
+  const handleCellTypeChange = (type: string) => {
+    console.log(`Received new type: ${type}`);
+  };
+
+  const handleOperationChange = (type: string) => {
+    console.log(`Received new type: ${type}`);
   };
 
   return (
     <>
+
+      <Node type="process" title="Process">
+        <Flex alignItems="center">
+          <Box width="100%">
+            <SearchResult 
+              queryName="Cell Types" 
+              displayField="name"
+              placeholder="Cell Type" 
+              onValueChange={handleCellTypeChange}
+              value="Kitchen" 
+            />
+            <SearchResult 
+              queryName="Cell Operations" 
+              displayField="name"
+              placeholder="Operation" 
+              onValueChange={handleOperationChange}
+              value={data.operation} 
+            />
+          </Box>
+        </Flex>
+      </Node>
+
       <Handle
         type="target"
         position={Position.Left}
@@ -30,14 +55,6 @@ export default React.memo(({ data } : Props) => {
         onConnect={(params: any) => console.log('handle onConnect', params)}
         isConnectable={true}
       />
-
-      <Node type="process" title={data.title}>
-        <Flex alignItems="center">
-          <Box width="100%">
-            <Toggle onToggle={handleToggle} isToggled={toggled} text="Alert" />
-          </Box>
-        </Flex>
-      </Node>
       
       <Handle
         type="source"

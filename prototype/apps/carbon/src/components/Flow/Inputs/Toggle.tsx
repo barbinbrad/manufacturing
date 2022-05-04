@@ -61,7 +61,7 @@ const StyledInput = styled.input.attrs({ type: 'checkbox' })`
   position: absolute;
   cursor: pointer;
   &:checked + ${StyledSlider} {
-    background: ${props => props.theme.colors.darkness[60]};
+    background: ${props => props.theme.colors.accent.blue};
     &:before {
       transform: translate(16px, -50%);
     }

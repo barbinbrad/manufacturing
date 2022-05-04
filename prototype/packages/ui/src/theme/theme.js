@@ -15,7 +15,7 @@ const colors = {
     green: '#3ef794',
   } ,
 
-  dark: '#111111',
+  dark: '#171717',
 
   light: '#FFFFFF',
 

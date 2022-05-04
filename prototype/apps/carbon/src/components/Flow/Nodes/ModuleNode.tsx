@@ -1,46 +1,57 @@
 import * as React from 'react';
 import { Handle, Position } from 'react-flow-renderer';
 import { Box, Flex } from 'ui';
-import Toggle from '../Inputs/Toggle';
-import Node, { NodeContext } from './Node';
+import SearchResult from '../Inputs/SearchResult';
+import Node from './Node';
 
 type Props = {
   data: Data;
 };
 
-type Data = {
+export type Data = {
   title: string;
   moduleId: string;
   parentId: string;
-  onKeyDown: () => void;
+  sync: boolean;
 }
 
 // eslint-disable-next-line react/display-name
 export default React.memo(({ data } : Props) => {
-  const nodeTheme = React.useContext(NodeContext);
-  const [test, setTest] = React.useState(false);
+  // const nodeTheme = React.useContext(NodeContext);
+  const [sync, setSync] = React.useState(false);
 
-  const toggleTest = () => {
-    setTest(x => !x);
-  }
+  const toggleSync = () => {
+    setSync(x => !x);
+  };
+
+  const handleModuleChange = (type: string) => {
+    console.log(`Received new type: ${type}`);
+  };
 
   return (
     <>
+      
+      <Node type="module" title="Module" >
+        <Flex alignItems="center">
+          <Box width="100%">
+            <SearchResult 
+              queryName="Modules" 
+              displayField="name"
+              placeholder="Modules" 
+              onValueChange={handleModuleChange}
+              value={data.title} 
+            />           
+          </Box>
+        </Flex>
+      </Node>
+
       <Handle
         type="target"
         position={Position.Left}
         style={{ background: '#555' }}
-        onConnect={(params: any) => console.log('handle onConnect', params)}
         isConnectable={true}
       />
-      <Node type="module" title={data.title} >
-        <Flex alignItems="center">
-          <Box width="100%">
-            <Toggle onToggle={toggleTest} isToggled={test} text="Test" />
-          </Box>
-        </Flex>
-      </Node>
-      
+
       <Handle
         type="source"
         position={Position.Right}

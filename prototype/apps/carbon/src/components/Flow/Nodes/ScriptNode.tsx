@@ -9,7 +9,7 @@ type Props = {
   data: Data;
 };
 
-type Data = {
+export type Data = {
   params: { [key: string]: any };
   code?: string;
 }
@@ -23,6 +23,7 @@ const highlight = (editor: HTMLElement) => {
 
 // eslint-disable-next-line react/display-name
 export default React.memo(({ data } : Props) => {
+  // const nodeTheme = React.useContext(NodeContext);
   const [code, setCode] = React.useState(data.code || 'async function f(params) {\n  // your code here\n  return 0\n}');
 
   return (
@@ -32,10 +33,8 @@ export default React.memo(({ data } : Props) => {
           code={code}
           style={{
             fontFamily: theme.fonts.mono,
-            background: 'rgba(0,0,0,0.8)', 
-            color: '#fff', 
-            margin: '-8px', 
-            padding: '8px', 
+            background: theme.colors.darkness[80], 
+            color: theme.colors.light, 
             minWidth: 320}}
           options={{
             tab: ' '.repeat(2)

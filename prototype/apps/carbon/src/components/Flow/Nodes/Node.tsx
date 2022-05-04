@@ -12,6 +12,8 @@ export type Props = {
 export type NodeTheme = {
   background: string;
   color: string;
+  border: string;
+  hasPadding: boolean;
   footer: string;
 }
 
@@ -19,26 +21,36 @@ const themeMap: {[key: string]: NodeTheme} = {
   'module': {
     background: theme.colors.accent.purple,
     color: theme.colors.text.onDark,
+    border: theme.colors.grey[600],
+    hasPadding: true,
     footer: 'Module',
   },
   'process': {
     background: theme.colors.accent.green,
     color: theme.colors.text.onLight,
+    border: theme.colors.grey[600],
+    hasPadding: true,
     footer: 'Process',
   },
   'utility' : {
     background: theme.colors.accent.pink,
     color: theme.colors.text.onLight,
+    border: theme.colors.grey[600],
+    hasPadding: true,
     footer: 'Utility',
   },
   'script' : {
     background: theme.colors.accent.yellow,
     color: theme.colors.text.onLight,
+    border: theme.colors.grey[600],
+    hasPadding: false,
     footer: 'Script'
   },
   'default': {
     background: theme.colors.light,
     color: theme.colors.text.onLight,
+    border: theme.colors.grey[600],
+    hasPadding: true,
     footer: 'Undefined',
   },
   
@@ -50,9 +62,7 @@ const Node = (props: Props) => {
   const [config] = React.useState(themeMap[props.type])
   return (
     <NodeContext.Provider value={config} >
-      <Wrapper>
-        <Element {...props} />
-      </Wrapper>
+      <Element {...props} />
     </NodeContext.Provider>
   );
 };
@@ -63,33 +73,35 @@ const Element = ({title, children}: Props) => {
   const config = React.useContext(NodeContext);
 
   return (
-    <div style={{
-      background: config.background, 
-      color: config.color,
-      borderRadius: '3px'
-    }}>
+    <Wrapper config={config}>
       <Header>
         <Title>{title}</Title>
         <Action>
           <DotsVerticalIcon width={16} height={16} color={config.color}/>
         </Action>
       </Header>
-      <Body>
+      <Body config={config}>
         { children }
       </Body>
       <Footer>{config.footer}</Footer>
-    </div>
+    </Wrapper>
   )
 };
 
-const Wrapper = styled.div`
+type WrapperProps = {
+  config: NodeTheme;
+}
+
+const Wrapper = styled.div<WrapperProps>`
   box-sizing: border-box;
   margin: 0px;
   min-width: 0px;
   padding: 0px;
   position: relative;
-  border: ${props => props.theme.borders[1] + props.theme.colors.grey[600]};
-  border-radius: 4px;
+  border: 1px solid ${props => props.config.border};
+  background: ${props => props.config.background};
+  color: ${props => props.config.color};
+  border-radius: 0.375rem;
 `;
 
 const Header = styled.div`
@@ -98,7 +110,6 @@ const Header = styled.div`
   min-width: 0px;
   padding: 8px;
   display: flex;
-  border-bottom: ${props => props.theme.borders[1] + props.theme.colors.grey[600]};
   align-items: center;
   box-pack: justify;
   justify-content: space-between;
@@ -122,10 +133,15 @@ const Action = styled.div`
   }
 `;
 
-const Body = styled.div`
+type BodyProps = {
+  config: NodeTheme;
+}
+
+const Body = styled.div<BodyProps>`
   box-sizing: border-box;
   margin: 0px;
-  padding: 8px;
+  border-top: 1px solid ${props => props.config.border};
+  padding: ${props => props.config.hasPadding ? '8px' : '0px'};
   min-width: 200px;
 `;
 

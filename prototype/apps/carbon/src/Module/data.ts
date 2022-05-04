@@ -58,7 +58,7 @@ const data: { [key: string]: FlowGraph; } = {
         id: '3',
         type: 'module',
         data: { title: 'Sandwich Setup' },
-        position: { x: 220, y: 50 },
+        position: { x: 220, y: 0 },
       },
       {
         id: '4',
@@ -69,20 +69,20 @@ const data: { [key: string]: FlowGraph; } = {
       {
         id: '5',
         type: 'process',
-        data: { title: 'Spread' },
-        position: { x: 800, y: -50 },
+        data: { operation: 'Spread' },
+        position: { x: 770, y: -100 },
       },
       {
         id: '6',
         type: 'process',
-        data: { title: 'Spread' },
-        position: { x: 800, y: 100 },
+        data: { operation: 'Spread' },
+        position: { x: 770, y: 100 },
       },
       {
         id: '7',
         type: 'process',
-        data: { title: 'Assemble' },
-        position: { x: 1070, y: 50 },
+        data: { operation: 'Assemble' },
+        position: { x: 1070, y: 0 },
       },
       {
         id: '999',
