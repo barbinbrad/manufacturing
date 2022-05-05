@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Handle, Position } from 'react-flow-renderer';
 import { Box, Flex } from 'ui';
+import Number from '../Inputs/Number';
 import SearchResult from '../Inputs/SearchResult';
 import Node from './Node';
 
@@ -16,12 +17,18 @@ export type Data = {
 // eslint-disable-next-line react/display-name
 export default React.memo(({ data } : Props) => {
 
+  const [time, setTime] = React.useState("0.5");
+  
   const handleCellTypeChange = (type: string) => {
     console.log(`Received new type: ${type}`);
   };
 
   const handleOperationChange = (type: string) => {
     console.log(`Received new type: ${type}`);
+  };
+
+  const handleTimeChange = (time: string) => {
+    setTime(time);
   };
 
   return (
@@ -44,6 +51,7 @@ export default React.memo(({ data } : Props) => {
               onValueChange={handleOperationChange}
               value={data.operation} 
             />
+            <Number placeholder="Time" value={time} onValueChange={handleTimeChange}/>
           </Box>
         </Flex>
       </Node>

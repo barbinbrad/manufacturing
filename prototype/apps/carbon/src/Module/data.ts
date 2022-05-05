@@ -14,7 +14,7 @@ const data: { [key: string]: FlowGraph; } = {
       },
       {
         id: '2',
-        type: 'module',
+        type: 'manufacturedPart',
         data: { title: 'Peanut Butter & Jelly' },
         position: { x: 330, y: 50 },
       },
@@ -58,7 +58,7 @@ const data: { [key: string]: FlowGraph; } = {
         id: '3',
         type: 'module',
         data: { title: 'Sandwich Setup' },
-        position: { x: 220, y: 0 },
+        position: { x: 200, y: 0 },
       },
       {
         id: '4',
@@ -80,8 +80,8 @@ const data: { [key: string]: FlowGraph; } = {
       },
       {
         id: '7',
-        type: 'process',
-        data: { operation: 'Assemble' },
+        type: 'module',
+        data: { title: 'Sandwich Assembly' },
         position: { x: 1070, y: 0 },
       },
       {
@@ -94,7 +94,7 @@ const data: { [key: string]: FlowGraph; } = {
       {
         id: '8',
         type: 'script',
-        data: { params: { addSugar: true }, code: 'async function f(params) {\n  const { addSugar } = params;\n  return (addSugar) ? 1 : 0;\n}' },
+        data: { params: { addSugar: true }, code: 'async function f(params) {\n  const { Jelly } = params;\n  return (Jelly === \"Peach\") \n    ? 1.5 \n    : 0.5;\n}' },
         position: { x: 320, y: 150 },
       },
     ],

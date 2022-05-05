@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import useModule from './useModule';
 import TopBar from './TopBar';
+import ManufacturedPartNode from '../components/Flow/Nodes/ManufacturedPartNode';
 import ModuleNode from '../components/Flow/Nodes/ModuleNode';
 import ProcessNode from '../components/Flow/Nodes/ProcessNode';
 import ScriptNode from '../components/Flow/Nodes/ScriptNode';
@@ -14,6 +15,7 @@ import DeleteEdge from '../components/Flow/Edges/DeleteEdge';
 const connectionLineStyle = { stroke: '#fff' };
 const snapGrid = [10, 10] as [number, number];
 const nodeTypes = {   
+  manufacturedPart: ManufacturedPartNode,
   module: ModuleNode,
   process: ProcessNode,
   script: ScriptNode,
@@ -66,7 +68,10 @@ export function Module(props: ReturnType<typeof useModule>) {
   );
 
   const handleClick = (event: React.MouseEvent, node: Node<any>) => {
-    if (node.type === 'module' && spacePressed) {
+    if (
+      (node.type === 'module' || node.type === 'manufacturedPart') &&
+      spacePressed
+    ) {
       navigate(`/module/${node.id}`);
     }
   };

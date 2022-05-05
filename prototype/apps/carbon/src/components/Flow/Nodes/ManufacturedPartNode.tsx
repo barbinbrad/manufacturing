@@ -16,22 +16,21 @@ export type Data = {
 
 // eslint-disable-next-line react/display-name
 export default React.memo(({ data } : Props) => {
-
-  const handleModuleChange = (type: string) => {
+  const handlePartChange = (type: string) => {
     console.log(`Received new type: ${type}`);
   };
 
   return (
     <>
       
-      <Node type="module" title="Module" >
+      <Node type="module" title="Manufactured Part" >
         <Flex alignItems="center">
           <Box width="100%">
             <SearchResult 
               queryName="Modules" 
               displayField="name"
               placeholder="Modules" 
-              onValueChange={handleModuleChange}
+              onValueChange={handlePartChange}
               value={data.title} 
             />
           </Box>
