@@ -91,12 +91,14 @@ const data: { [key: string]: FlowGraph; } = {
         position: { x: 1350, y: 50 },
         targetPosition: Position.Left,
       },
+      /*
       {
         id: '8',
         type: 'script',
         data: { params: { addSugar: true }, code: 'async function f(params) {\n  const { Jelly } = params;\n  return (Jelly === \"Peach\") \n    ? 1.5 \n    : 0.5;\n}' },
         position: { x: 320, y: 150 },
       },
+      */
     ],
     edges: [
       {

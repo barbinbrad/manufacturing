@@ -1,20 +1,28 @@
+import * as React from "react";
+import ReactFlow, {
+  useNodesState,
+  useEdgesState,
+  useKeyPress,
+  addEdge,
+  Node,
+  Controls,
+  Background,
+  BackgroundVariant,
+} from "react-flow-renderer";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import useModule from "./useModule";
+import TopBar from "./TopBar";
+import ManufacturedPartNode from "../components/Flow/Nodes/ManufacturedPartNode";
+import ModuleNode from "../components/Flow/Nodes/ModuleNode";
+import ProcessNode from "../components/Flow/Nodes/ProcessNode";
+import ScriptNode from "../components/Flow/Nodes/ScriptNode";
+import SplitNode from "../components/Flow/Nodes/SplitNode";
+import DeleteEdge from "../components/Flow/Edges/DeleteEdge";
 
-import * as React from 'react';
-import ReactFlow, { useNodesState, useEdgesState, useKeyPress, addEdge, Node, Controls, Background, BackgroundVariant } from 'react-flow-renderer';
-import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
-import useModule from './useModule';
-import TopBar from './TopBar';
-import ManufacturedPartNode from '../components/Flow/Nodes/ManufacturedPartNode';
-import ModuleNode from '../components/Flow/Nodes/ModuleNode';
-import ProcessNode from '../components/Flow/Nodes/ProcessNode';
-import ScriptNode from '../components/Flow/Nodes/ScriptNode';
-import SplitNode from '../components/Flow/Nodes/SplitNode';
-import DeleteEdge from '../components/Flow/Edges/DeleteEdge';
-
-const connectionLineStyle = { stroke: '#fff' };
+const connectionLineStyle = { stroke: "#fff" };
 const snapGrid = [10, 10] as [number, number];
-const nodeTypes = {   
+const nodeTypes = {
   manufacturedPart: ManufacturedPartNode,
   module: ModuleNode,
   process: ProcessNode,
@@ -24,7 +32,7 @@ const nodeTypes = {
 
 const edgeTypes = {
   deleteEdge: DeleteEdge,
-}
+};
 
 export default function Container() {
   const state = useModule();
@@ -32,13 +40,11 @@ export default function Container() {
 }
 
 export function Module(props: ReturnType<typeof useModule>) {
-  const {
-    graph
-  } = props;
-  
+  const { graph } = props;
+
   const navigate = useNavigate();
-  const spacePressed = useKeyPress('Space');
-  
+  const spacePressed = useKeyPress("Space");
+
   const [nodes, setNodes, onNodesChange] = useNodesState([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState([]);
 
@@ -49,8 +55,8 @@ export function Module(props: ReturnType<typeof useModule>) {
 
   React.useEffect(() => {
     const handleKeydown = (event: KeyboardEvent) => {
-      switch(event.key) {
-        case 'Escape':
+      switch (event.key) {
+        case "Escape":
           if (graph.parentId) {
             navigate(`/module/${graph.parentId}`);
           }
@@ -58,24 +64,35 @@ export function Module(props: ReturnType<typeof useModule>) {
       }
     };
 
-    window.addEventListener('keydown', handleKeydown);
-    return () => window.removeEventListener('keydown', handleKeydown);
-  }, [graph.parentId])
+    window.addEventListener("keydown", handleKeydown);
+    return () => window.removeEventListener("keydown", handleKeydown);
+  }, [graph.parentId]);
 
   const handleConnect = React.useCallback(
-    (params) => setEdges((eds) => addEdge({ ...params, animated: true, style: { stroke: '#fff' }, type: 'deleteEdge' }, eds)),
+    (params) =>
+      setEdges((eds) =>
+        addEdge(
+          {
+            ...params,
+            animated: true,
+            style: { stroke: "#fff" },
+            type: "deleteEdge",
+          },
+          eds
+        )
+      ),
     []
   );
 
   const handleClick = (event: React.MouseEvent, node: Node<any>) => {
     if (
-      (node.type === 'module' || node.type === 'manufacturedPart') &&
+      (node.type === "module" || node.type === "manufacturedPart") &&
       spacePressed
     ) {
       navigate(`/module/${node.id}`);
     }
   };
-  
+
   return (
     <>
       <TopBar />
